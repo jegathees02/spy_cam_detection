@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -42,6 +43,7 @@ dependencies:
   wifi_info_flutter: ^2.0.2
   wifi_iot: ^0.3.19
   network_info_plus: ^5.0.3
+  audioplayers: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +66,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets\audio\sound1.mp3
 
   # To add assets to your application, add an assets section, like this:
   # assets:

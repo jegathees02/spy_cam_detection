@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import pandas as pd
+import tensorflow as tf 
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv1D, LSTM, Dense
@@ -27,25 +28,25 @@ model.add(Dense(1, activation='sigmoid'))
 # Compile the model
 model.compile(optimizer='adam', loss='mean_squared_error')
 
-
-
 # Train the model
-model.fit(X, y, epochs=50  , batch_size=32)
+model.fit(X, y, epochs=50, batch_size=32)
+
 # Evaluate the model
 loss = model.evaluate(X, y)
 print(f"Model Loss: {loss}")
-# print(f"Mean Squared Error: {mse}")
-
-# Make predictions
-# predictions = model.predict(X)
-# print(predictions)
-
-# Get the current directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Save the trained model in the current directory
-model.save(os.path.join(current_dir, 'wifi_detection_model.h5'))
+model.save('wifi_detection_model.h5')
 
-# Make predictions
-predictions = model.predict(X)
-print(predictions)
+# Convert the model to TensorFlow Lite format
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS, tf.lite.OpsSet.SELECT_TF_OPS]
+converter.target_spec.supported_types = [tf.float32]
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+converter.experimental_new_converter = True
+converter.experimental_enable_resource_variables = True
+tflite_model = converter.convert()
+
+# Save the TensorFlow Lite model
+with open(r'C:\Users\JEGATHEESWARAN T\Desktop\spy_cam_detection\spyde\python\wifi_detection_model.tflite', 'wb') as f:
+    f.write(tflite_model)

@@ -57,7 +57,7 @@ class _SpeedometerState extends State<Speedometer> {
             GaugeAnnotation(
               widget: Container(
                 child: Text(
-                  '${widget.currentValue.toStringAsFixed(2)} µT',
+                  '${widget.currentValue.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
